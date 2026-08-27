@@ -10,23 +10,32 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadPopularMovies = async () => {
-      try {
-        const popularMovies = await getPopularMovies();
-        setMovies(popularMovies);
-      } catch (err) {
-        console.log(err);
-        setError("Failed to load movies...");
-      } finally {
-        setLoading(false);
-      }
-    };
     loadPopularMovies();
   }, []);
 
+  const loadPopularMovies = async () => {
+    setLoading(true);
+    try {
+      const popularMovies = await getPopularMovies();
+      setMovies(popularMovies);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load movies...");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!searchQuery.trim()) return;
+    
+    // If search is cleared and submitted, reload popular movies
+    if (!searchQuery.trim()) {
+      loadPopularMovies();
+      return;
+    }
+
     if (loading) return;
 
     setLoading(true);
@@ -35,7 +44,7 @@ function Home() {
       setMovies(searchResults);
       setError(null);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError("Failed to search movies...");
     } finally {
       setLoading(false);
@@ -47,7 +56,7 @@ function Home() {
       <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
-          placeholder="Search for movies ..."
+          placeholder="Search for movies..."
           className="search-input"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -59,14 +68,16 @@ function Home() {
 
       {error && <div className="error-message">{error}</div>}
 
-      {loading ? 
+      {loading ? (
         <div className="loading">Loading...</div>
-       : (
+      ) : movies && movies.length > 0 ? (
         <div className="movies-grid">
           {movies.map((movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}
         </div>
+      ) : (
+        !error && <div className="no-results">No movies found</div>
       )}
     </div>
   );
