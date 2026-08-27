@@ -1,36 +1,42 @@
+import { useMovieContext } from "../contexts/MovieContext";
 import "../css/MovieCard.css";
 
-function MovieCard({ movie, isFavorite = false, onToggleFavorite }) {
-  const handleFavoriteClick = (e) => {
-    e.stopPropagation();
-    if (onToggleFavorite) {
-      onToggleFavorite(movie);
+function MovieCard({ movie }) {
+  const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+  const favorite = isFavorite(movie.id);
+
+  function onFavoriteClick(e) {
+    e.preventDefault();
+    if (favorite) {
+      removeFromFavorites(movie.id);
     } else {
-      alert(`Clicked ${movie.title}`);
+      addToFavorites(movie);
     }
-  };
+  }
 
   const posterUrl = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : "https://via.placeholder.com/500x750?text=No+Poster+Available";
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path.startsWith('/') ? '' : '/'}${movie.poster_path}`
+    : 'https://via.placeholder.com/500x750?text=No+Poster';
 
   return (
     <div className="movie-card">
       <div className="movie-poster">
-        <img src={posterUrl} alt={movie.title} />
+        <img
+          src={posterUrl}
+          alt={movie.title}
+        />
         <div className="movie-overlay">
-          <button 
-            className={`favorite-btn ${isFavorite ? "active" : ""}`} 
-            onClick={handleFavoriteClick}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          <button
+            className={`favorite-btn ${favorite ? "active" : ""}`}
+            onClick={onFavoriteClick}
           >
-            {isFavorite ? "❤️" : "🤍"}
+            ♥
           </button>
         </div>
       </div>
       <div className="movie-info">
         <h3>{movie.title}</h3>
-        <p>{movie.release_date ? movie.release_date.split("-")[0] : "N/A"}</p>
+        <p>{movie.release_date?.split("-")[0]}</p>
       </div>
     </div>
   );
