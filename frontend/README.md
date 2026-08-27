@@ -1,17 +1,41 @@
-# React + Vite
+# 🎬 Movie Discovery App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive Netflix-style web application for discovering trending movies, searching the TMDB database, and saving personal favorites. Built with **React**, **Vite**, **React Router**, and **CSS Modules**.
 
-Currently, two official plugins are available:
+![Movie App Preview](public/preview.png) *(Optional: Replace with a path to a screenshot/gif)*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Trending & Popular Movies:** Live integration with TMDB API to fetch up-to-date movie data.
+* **Instant Search:** Real-time search functionality with query parameters and dynamic grid updates.
+* **Favorites Management:** Add or remove movies to/from a personal list with state persisted in `localStorage`.
+* **Netflix Dark Theme UI:** Styled with sleek CSS modules featuring custom glassmorphism components, responsive poster grids, and fluid layout animations.
+* **Component Architecture:** Modular structure utilizing React Context (`MovieContext`) for predictable global state management.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Movies-card
+## 🛠️ Tech Stack
+
+* **Frontend:** React 18, React Router v6
+* **Build Tool:** Vite
+* **Styling:** CSS3 (Flexbox, CSS Grid, Custom Animations, Glassmorphism)
+* **API:** [The Movie Database (TMDB) API](https://www.themoviedb.org/documentation/api)
+* **State Management:** React Context API & LocalStorage
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* [Node.js](https://nodejs.org/) (v16.x or higher)
+* `npm` or `yarn`
+
+### Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/fraternebahirwe/Movie-app.git](https://github.com/fraternebahirwe/Movie-app.git)
+   cd Movie-app/frontend
